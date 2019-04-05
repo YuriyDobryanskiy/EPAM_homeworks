@@ -1,4 +1,7 @@
 <?php
+/*
+ * HW#1
+ */
 function onlyInt( $x ){
     return intval( $x );
 }
@@ -61,6 +64,105 @@ class asciiSum
         return $i;    
     }
 }
+
+/*
+ * HW#2
+ */
+
+class stringTasks
+{
+    function strExplode($z, $zz){
+        $pieces = explode($z, $zz);
+        return $pieces;
+    }
+
+    function createNewStr($deli, $str){
+        $newPieces = array();
+        foreach ($this->strExplode($deli, $str) as $key => $piece){
+            ($key == 0) ? $newPieces[] = $piece : $newPieces[] = ucfirst ($piece);
+        }
+        return implode('', $newPieces);
+    }
+}
+
+class stringTasksCyril extends stringTasks
+{
+    function strInArr($deli, $str){
+        $newArr = array();
+        foreach ($this->strExplode($deli, $str) as $key => $piece){
+            $wordArr = preg_split('//u', $piece, NULL, PREG_SPLIT_NO_EMPTY); //розбиття слова на кириличні букви
+            krsort($wordArr);
+            $newArr[] = implode('', $wordArr);
+        }
+        return implode(' ',$newArr);
+    }
+}
+
+function valueSearch($a, $number){
+    $rez = array();
+    foreach ($a as $key => $value){
+        (strpos($value, $number, 0) !== false) ? $rez[] = $value : '';
+    }
+    return $rez;
+}
+
+function valueCount($a, $number){
+    $rez = array();
+    foreach ($a as $key => $value){
+        $rez[] = substr_count ($value, $number);
+    }
+    return $rez;
+}
+
+function bandName($string){
+    $firstLetter = substr($string, 0,1);
+    $lastLetter = substr($string, -1);
+    return ($firstLetter != $lastLetter) ? 'The '.ucfirst($string) : ucfirst($string).substr($string, 1);
+}
+
+function convert($string){
+    $converter = array('A' => 'T', 'T' => 'A', 'C' => 'G', 'G' => 'C');
+    return strtr($string, $converter);
+}
+
+/*
+ * HW#3
+ */
+function pushArr($y){
+    $newArr = array();
+    foreach ($y as $piece){
+        for($i=1; $i <= $piece; $i++){
+            $newArr[] = $piece;
+        }
+    }
+    return implode(', ',$newArr);
+}
+
+function threeArr($j){
+    $j = array_unique ($j);
+    natcasesort($j);
+    $outputFirst = array_slice($j, 0, 3);
+    $outputLast = array_slice($j, -3);
+    $outputMid = array_slice($j, (-(count($j)/2)-2), 3);
+    return 'Перші 3 темп. - '.implode(', ',$outputFirst).'; середні 3 темп. - '.implode(', ',$outputMid).'; останні 3 темп. - '.implode(', ',$outputLast);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ?>
