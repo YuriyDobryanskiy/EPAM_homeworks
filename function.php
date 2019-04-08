@@ -148,9 +148,88 @@ function threeArr($j){
 }
 
 
+class codingBooks
+{
+    function __construct($books){
+        return $books = (array)$books;
+    }
+
+    //https://www.php.net/manual/ru/function.array-multisort.php
+    function getPrice($books){
+        $priceBooks = array();
+        $books = $this->__construct($books);
+
+        foreach ($books as $book){
+            $priceBooks[] = $book['price'];
+        };
+        array_multisort($books, SORT_ASC, SORT_NUMERIC, $priceBooks);
+
+        $newList = array();
+        foreach ($books as $book){
+            $newList[] = array($book['name'],$book['price']);
+        }
+        return $newList;
+    }
+    function getPhp($books,$tag){
+        /*
+            array_filter($books,function($a){
+                return $a == 'tags';
+            }, ARRAY_FILTER_USE_KEY);
+        */
+        $phpList = array();
+        foreach ($books as $key=>$book) {
+            if (array_key_exists("tags", $book) && in_array($tag, $book['tags'])) {
+                $phpList[] = array($book['name'],$tag);
+            }
+        }
+        return $phpList;
+    }
+
+    function infoOut($someArr, $param1, $param2='*****'){
+        foreach ($someArr as $book){
+            echo "<strong>Book $param1 - </strong>$book[0] -><strong> $param2 </strong>- $book[1]<br/>";
+        }
+    }
+}
 
 
 
+function indexN($arr){
+    $countArr = count($arr);
+    for ($i = 1; $i < $countArr-1; $i++) {
+        $left = array_slice($arr, 0, $i);
+        $right = array_slice($arr, $i+1, $countArr);
+        if(array_sum($left) == array_sum($right)){
+            return "Число $arr[$i] середина масиву";
+        }
+    }
+    return -1;
+}
+
+class uniqueValue
+{
+    private function toString($arr){
+        $newArr = array();
+        foreach ($arr as $nb){
+            $newArr[]= (string)$nb;
+        }
+        return $newArr;
+    }
+
+    function uniqNumber($arr){
+        $array = array_count_values($this->toString($arr));
+        foreach ($array as $key => $value) {
+            if ($value == 1) {
+                return $key;
+            }else{
+                continue;
+            }
+        };
+    }
+}
+/*
+ * HW#4
+ */
 
 
 
