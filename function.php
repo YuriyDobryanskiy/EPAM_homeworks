@@ -228,10 +228,54 @@ class uniqueValue
     }
 }
 /*
- * HW#4
+ * HW#4 - Test part
  */
 
+class Test_PHP_Types{
 
+    function getJsonCode($c){
+        return json_encode($c);
+    }
+
+    function getTypeFromJson($c){
+        return json_decode($c,true);
+    }
+
+}
+
+class CsvFile{
+
+    private $dir = "csv_file";
+
+    function __construct()
+    {
+        if(!file_exists($this->dir)){
+            mkdir($this->dir);
+        };
+    }
+
+    function writeFile($arr){
+        $str = implode(";",$arr);
+        $CSV_str = iconv( "UTF-8", "cp1251",  $str );
+        file_put_contents("$this->dir/file.csv", $CSV_str."\r\n", FILE_APPEND);
+    }
+
+    function readFile(){
+        $fileHandle = fopen("$this->dir/file.csv", "r");
+        $encoded = array();
+        while (($row = fgetcsv($fileHandle, 1000, ";")) !== FALSE) {
+            $encoded_row = array();
+            foreach ($row as $utf8Row) {
+                $encoded_row[] = mb_convert_encoding($utf8Row, 'UTF-8', mb_detect_encoding($utf8Row,"cp1251,UTF-8"));
+            }
+            $encoded[] = $encoded_row;
+        }
+        return $encoded;
+    }
+}
+/*
+ * HW#4
+ */
 
 
 
