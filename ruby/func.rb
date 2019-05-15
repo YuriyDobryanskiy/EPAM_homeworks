@@ -54,7 +54,6 @@ def sumArrayNumers(numbers)
     #sumPart2 = part2.inject(0) {|sum, i|  sum + i }
 
     return (getSumOfArr(part1) == getSumOfArr(part2)) ? "Yes" : "No"
-
 end
 
 class CapText
@@ -73,6 +72,58 @@ class CapText
     end
     
 end
+
+def checkNumber3(arr)
+    newArr = Array.new
+    arr.each do |num|
+        if (num.to_s.include? "3")
+            newArr << num
+        end 
+    end
+    return newArr
+end
+
+def checkAllNumber3(arr)
+    some = 0
+    arr.each do |num|
+        number = num.to_s.scan('3').count
+        if (number > 0)
+            some += number
+        end
+    end
+    return some
+end
+
+class ReversArrOfStrings
+    attr_accessor :input_text
+
+    def initialize(text)
+        @input_text = text.split(' ')
+    end
+
+    def reversString
+        some_str = ''
+        i = 0
+        while ( i < @input_text.count)
+            some_str += "#{@input_text[i].reverse} "
+            i += 1
+        end
+        return some_str
+    end    
+end
+
+def repeatNumbers(arr)
+    newArr = Array.new
+    arr.each do |num|
+        i = 1
+        while i <= num
+            newArr << num
+            i += 1
+        end
+    end
+    return newArr
+end
+
 
 
 
